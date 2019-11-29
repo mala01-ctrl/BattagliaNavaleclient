@@ -26,6 +26,11 @@ public class BattagliaNavaleClient {
         out = new PrintWriter(socket.getOutputStream(), true);
     }
 
+    public void insertCoordinate() {
+        Scanner user = new Scanner(System.in);
+        out.println(user.next());
+    }
+    
     public Socket getSocket() {
         return socket;
     }
@@ -36,13 +41,27 @@ public class BattagliaNavaleClient {
         out.println(user.next());
     }
     
+    public void play()
+    {
+        selectUsername();
+        String giocatore = in.nextLine();
+        System.out.println("Battaglia navale: Player " + giocatore);
+        while (in.hasNextLine()) {
+            String response = in.nextLine();
+            System.out.println(response);
+            if (response.equals("Inserisci le coordinate della prima nave")) {
+                insertCoordinate();
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
         BattagliaNavaleClient client = new BattagliaNavaleClient("127.0.0.1");
         System.out.print(client.in.nextLine());
-        client.selectUsername();
+        client.play();
     }
     
 }
