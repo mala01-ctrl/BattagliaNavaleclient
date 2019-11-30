@@ -49,7 +49,7 @@ public class BattagliaNavaleClient {
         while (in.hasNextLine()) {
             String response = in.nextLine();
             System.out.println(response);
-            if (response.equals("Inserisci le coordinate della prima nave")) {
+            if (response.equals("Inserire la colonna della prima nave")) {
                 insertCoordinate();
             }
         }
