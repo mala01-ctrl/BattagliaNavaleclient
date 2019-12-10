@@ -43,7 +43,9 @@ public class BattagliaNavaleClient {
     
     public void play()
     {
-        System.out.println(in.nextLine());
+        System.out.println(in.nextLine()); //Messaggio per l'inserimento del nome
+        selectUsername();
+        System.out.println(in.nextLine()); //Messaggio di benvenuto
         while (in.hasNextLine()) {
             String response = in.nextLine();
             System.out.println(response);
@@ -55,6 +57,9 @@ public class BattagliaNavaleClient {
     
     public static void main(String args[]) throws IOException 
     {
+        char c = 'A';
+        int x = c;
+        System.out.println(x);
         BattagliaNavaleClient client = new BattagliaNavaleClient("127.0.0.1");
         client.play();
     }
