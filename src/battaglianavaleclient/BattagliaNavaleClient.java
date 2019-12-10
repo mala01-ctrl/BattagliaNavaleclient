@@ -29,8 +29,9 @@ public class BattagliaNavaleClient {
     }
 
     public void Orientamento() {
-        char risposta = user.next().charAt(0);
+        char risposta;
         do {
+            risposta = user.next().charAt(0);
             if (!Character.isUpperCase(risposta))
                 risposta = Character.toUpperCase(risposta);
             if (!checkCharacter(risposta))
@@ -48,35 +49,29 @@ public class BattagliaNavaleClient {
         return false;
     }
     
-    public void insertRighe() {
-        boolean errore = false;
-            try {
-                int x = user.nextInt();
-            } catch (Exception e) {
-                errore = true;
-                System.out.println("Inserire solo lettere");
-            }
-        /*boolea} while (errore);n errore = false;
+    public void insertRighe() 
+    {
+        char risposta;
         do {
-            if (checkRighe(user.next())) {
-                System.out.println("Errore");
-                errore = true;
-            }
-            char risposta = user.next().charAt(0);
+            risposta = this.user.next().charAt(0);
+            if (!Character.isLetter(risposta))
+                System.out.println("Digitare una lettera (A-V)");
             if (!Character.isUpperCase(risposta)) {
                 risposta = Character.toUpperCase(risposta);
             }
-        } while (errore);*/
+        } while (!Character.isLetter(risposta));
+        out.println(risposta);
     }
     
-    public boolean checkRighe(String risposta)
+    public void insertColonne()
     {
-        String pattern = "[a-zA-Z] *";
-        return risposta.matches(pattern);
-    }
-    
-    public Socket getSocket() {
-        return socket;
+        char risposta;
+        do{
+            risposta = user.next().charAt(0);
+            if (!Character.isDigit(risposta))
+                System.out.println("Errore");
+        }while(!Character.isDigit(risposta));
+        out.println(risposta);
     }
     
     public void selectUsername()
@@ -92,19 +87,18 @@ public class BattagliaNavaleClient {
         while (in.hasNextLine()) {
             String response = in.nextLine();
             System.out.println(response);
-            if (response.equals("Posizionare navi in verticale?S/N")) {
+            if (response.equals("Posizionare navi in verticale?S/N"))
                 Orientamento();
-            }
-            if (response.equals("Digitare numero righe"))
+            if (response.equals("Digitare lettera delle colonne"))
                 insertRighe();
+            if (response.equals("Digitare numero delle righe"))
+                insertColonne();
+            
         }
     }
     
     public static void main(String args[]) throws IOException 
     {
-        char c = 'A';
-        int x = c;
-        System.out.println(x);
         BattagliaNavaleClient client = new BattagliaNavaleClient("127.0.0.1");
         client.play();
     }
