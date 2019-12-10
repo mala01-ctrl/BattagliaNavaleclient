@@ -44,10 +44,12 @@ public class BattagliaNavaleClient {
     public void play()
     {
         System.out.println(in.nextLine());
+        selectUsername();
+        System.out.println(in.nextLine());
         while (in.hasNextLine()) {
             String response = in.nextLine();
             System.out.println(response);
-            if (response.equals("Inserire la colonna della prima nave")) {
+            if (response.equals("Posizionare navi in verticale?")) {
                 insertCoordinate();
             }
         }
