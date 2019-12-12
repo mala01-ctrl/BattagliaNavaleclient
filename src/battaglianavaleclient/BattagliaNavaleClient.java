@@ -86,14 +86,20 @@ public class BattagliaNavaleClient {
         System.out.println(in.nextLine());
         while (in.hasNextLine()) {
             String response = in.nextLine();
-            System.out.println(response);
-            if (response.equals("Posizionare navi in verticale?S/N"))
+            if (response.equals("Orientamento")) {
+                System.out.println("Posizionare le navi in verticale?S/N");
                 Orientamento();
-            if (response.equals("Digitare lettera delle colonne"))
+            }
+            if (response.equals("Colonna")) {
+                System.out.println("Digitare lettera della colonna");
                 insertRighe();
-            if (response.equals("Digitare numero delle righe"))
+            }
+            if (response.equals("Righe")) {
+                System.out.println("Digitare numero della riga");
                 insertColonne();
-            
+            }
+            else
+                System.out.println(response);
         }
     }
     
