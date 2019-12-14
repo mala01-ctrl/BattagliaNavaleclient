@@ -19,6 +19,9 @@ public class BattagliaNavaleClient {
     private Scanner in;
     private PrintWriter out;
     private Scanner user;
+    private int griglia[][];
+    private int x;
+    private int y;
 
     public BattagliaNavaleClient(String serverAddress) throws IOException
     {
@@ -26,6 +29,7 @@ public class BattagliaNavaleClient {
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream(), true);
         user = new Scanner(System.in);
+        griglia = new int[21][21];
     }
 
     public void Orientamento() {
@@ -49,7 +53,11 @@ public class BattagliaNavaleClient {
         return false;
     }
     
-    public void insertRighe() 
+    private int convertiLetteraNumero(char lettera) {
+        return lettera - 65;
+    }
+    
+    public void insertColonne() 
     {
         char risposta;
         do {
@@ -60,10 +68,11 @@ public class BattagliaNavaleClient {
                 risposta = Character.toUpperCase(risposta);
             }
         } while (!Character.isLetter(risposta));
+        y = convertiLetteraNumero(risposta);
         out.println(risposta);
     }
     
-    public void insertColonne()
+    public void insertRighe()
     {
         char risposta;
         do{
@@ -71,6 +80,7 @@ public class BattagliaNavaleClient {
             if (!Character.isDigit(risposta))
                 System.out.println("Errore");
         }while(!Character.isDigit(risposta));
+        x = Character.getNumericValue(risposta) - 1;
         out.println(risposta);
     }
     
@@ -92,14 +102,44 @@ public class BattagliaNavaleClient {
             }
             if (response.equals("Colonna")) {
                 System.out.println("Digitare lettera della colonna");
-                insertRighe();
+                insertColonne();
             }
             if (response.equals("Righe")) {
                 System.out.println("Digitare numero della riga");
-                insertColonne();
+                insertRighe();
+            }
+            if (response.equals("Colpita"))
+            {
+                griglia[x][y] = 1;
+                stampaMatrice();
+                System.out.println("Colpita");
+            }
+            if (response.equals("Acqua"))
+            {
+                stampaMatrice();
+                System.out.println("Acqua");
+            }
+            if (response.equals("Vittoria"))
+            {
+                System.out.println("Vittoria");
+                return;
+            }
+            if (response.equals("Hai perso"))
+            {
+                System.out.println("Hai perso");
+                return;
             }
             else
                 System.out.println(response);
+        }
+    }
+    
+    public void stampaMatrice() {
+        for (int i = 0; i < 21; i++) {
+            for (int j = 0; j < 21; j++) {
+                System.out.print(griglia[i][j]);
+            }
+            System.out.println("");
         }
     }
     
